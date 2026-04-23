@@ -1,1 +1,11 @@
 
+name = "kuendigungscheck"
+main = "worker/index.js"
+compatibility_date = "2024-12-01"
+
+[[kv_namespaces]]
+binding = "KUENDIGUNG_QUEUE"
+id = "JOUW_KV_NAMESPACE_ID"
+
+[triggers]
+crons = ["0 13 * * 1-5"]
