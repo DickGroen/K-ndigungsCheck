@@ -1,1 +1,463 @@
 
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vertrag kündigen lassen | Kündigungs Check DE</title>
+  <meta name="description" content="Lade deinen Vertrag hoch und erhalte eine Kündigungsanalyse + fertiges Kündigungsschreiben bis morgen 16:00 Uhr. Einmalig €29.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container--wide">
+    <div class="site-header__inner">
+      <div class="logo">
+        <span class="logo-dot"></span>
+        Kündigungs Check DE
+      </div>
+      <button class="header-cta" onclick="openModal()">Vertrag prüfen — €29</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+
+    <div class="hero__eyebrow" style="justify-content:center;text-align:center;display:block;margin-left:auto;margin-right:auto;">
+      Nicht einfach weiterzahlen — lass deinen Vertrag zuerst prüfen
+    </div>
+
+    <h1 style="text-align:center;">Kannst du diesen Vertrag möglicherweise früher kündigen?</h1>
+
+    <p class="hero__sub" style="text-align:center;margin-left:auto;margin-right:auto;">
+      Viele Verträge enthalten Fehler, versteckte Fristen oder unzulässige Klauseln.
+      Lade deinen Vertrag hoch und erhalte bis morgen 16:00 Uhr eine vollständige Analyse sowie ein fertiges Kündigungsschreiben per E-Mail.
+    </p>
+
+    <!-- VALUE STRIP -->
+    <div class="value-strip">
+      <span class="value-item"><span class="vi-check">✔</span> Analyse + Kündigungsschreiben bis morgen 16:00 Uhr</span>
+      <span class="value-item"><span class="vi-check">✔</span> Per E-Mail — kein Konto erforderlich</span>
+      <span class="value-item"><span class="vi-check">✔</span> Einmalig €29 · kein Abo</span>
+      <span class="value-item"><span class="vi-check">✔</span> Dokument wird nach Verarbeitung gelöscht</span>
+    </div>
+
+    <!-- TWEE OPTIES -->
+    <div class="optie-grid">
+
+      <!-- OPTIE 1: BETAALD (primair) -->
+      <div class="optie-card optie-card--betaald">
+        <div class="optie-badge optie-badge--betaald">Empfohlen</div>
+        <h3 class="optie-title">Vollständige Analyse</h3>
+        <p class="optie-desc">Erhalte die vollständige Analyse mit einem fertigen Kündigungsschreiben — direkt verwendbar, bis morgen 16:00 Uhr per E-Mail.</p>
+        <ul class="optie-list">
+          <li>✓ Vollständige Analyse aller Kündigungsmöglichkeiten</li>
+          <li>✓ Prüfung auf Sonderkündigungsrecht</li>
+          <li>✓ Fertiges Kündigungsschreiben</li>
+          <li>✓ Konkrete nächste Schritte</li>
+          <li>✓ Ergebnis bis morgen 16:00 Uhr</li>
+        </ul>
+        <div class="optie-price">€29 <span>einmalig · kein Abo</span></div>
+        <a href="https://buy.stripe.com/JOUW_STRIPE_LINK" class="optie-btn optie-btn--betaald">
+          Jetzt zahlen und Analyse starten →
+        </a>
+        <p class="optie-security">🔒 Sichere Zahlung über Stripe</p>
+        <p class="optie-guarantee">Nicht zufrieden? Geld zurück — ohne Diskussion.</p>
+      </div>
+
+      <!-- OPTIE 2: GRATIS (secundair) -->
+      <div class="optie-card optie-card--gratis">
+        <div class="optie-badge optie-badge--gratis">Kostenlos</div>
+        <h3 class="optie-title">Erste Einschätzung</h3>
+        <p class="optie-desc">Noch unsicher? Lade deinen Vertrag hoch und erhalte eine kostenlose Ersteinschätzung per E-Mail.</p>
+        <ul class="optie-list">
+          <li>✓ Vertragsart und Laufzeit erkannt</li>
+          <li>✓ Erste Risikoeinschätzung</li>
+          <li>✓ Per E-Mail — Einschätzung spätestens am nächsten Werktag vor 16:00 Uhr</li>
+        </ul>
+        <div class="optie-price">Kostenlos</div>
+        <input type="file" id="gratis-file-input" accept=".pdf,.jpg,.jpeg,.png"
+               onchange="handleGratisFileSelect(this)" style="display:none;">
+        <label class="upload-section upload-section--small" id="gratis-upload-zone" for="gratis-file-input">
+          <div class="upload-label">Vertrag hochladen</div>
+          <div class="upload-hint">PDF, JPG oder PNG · max. 10 MB</div>
+        </label>
+        <div id="gratis-contact-fields" style="display:none;gap:8px;flex-direction:column;">
+          <input type="text" id="gratis-name" placeholder="Dein Name" class="optie-input">
+          <input type="email" id="gratis-email" placeholder="Deine E-Mail-Adresse" class="optie-input">
+        </div>
+        <button class="optie-btn optie-btn--gratis" id="gratis-btn" onclick="startGratisUpload()" disabled>
+          Kostenlose Einschätzung anfordern
+        </button>
+        <div class="optie-status" id="gratis-status"></div>
+      </div>
+
+    </div>
+
+    <!-- UPLOAD (verborgen, voor teaser flow) -->
+    <input type="file" id="file-input" accept=".pdf,.jpg,.jpeg,.png"
+           onchange="handleFile(this)" style="display:none;">
+    <label class="upload-section" id="upload-zone" for="file-input" style="display:none;">
+      <div class="upload-label">Vertrag hochladen</div>
+      <div class="upload-hint">PDF, JPG oder PNG</div>
+    </label>
+
+    <!-- TEASER -->
+    <div class="teaser" id="teaser">
+      <div class="teaser__header">
+        <div>
+          <div style="font-size:0.72rem;color:#9CA3AF;margin-bottom:4px;letter-spacing:0.05em;text-transform:uppercase;">Erkannt</div>
+          <div class="teaser__company" id="teaser-company">Dein Vertrag ist bereit zur Analyse</div>
+        </div>
+        <div class="teaser__status-label">Bereit</div>
+      </div>
+      <div class="teaser__body">
+        <div class="teaser__found" id="teaser-found">Gut. Das passiert jetzt:</div>
+        <div class="teaser__sub" id="teaser-sub">Dein Vertrag wurde erkannt. Klicke unten, um deine Analyse anzufordern — Ergebnis bis morgen 16:00 Uhr.</div>
+        <div class="teaser__locked">
+          <div class="lock-icon">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="teaser__locked-text" id="teaser-locked-text">
+            <strong>Vollständige Analyse nach Zahlung</strong>
+            Kündigungsmöglichkeiten, Einschätzung und fertiges Kündigungsschreiben — bis morgen 16:00 Uhr per E-Mail.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-wrap">
+      <button class="cta-main" onclick="openModal()">
+        Vertrag prüfen — €29 · Ergebnis bis morgen 16:00 Uhr
+      </button>
+      <div class="cta-sub">Einmalige Zahlung · kein Abo · 🔒 Sichere Zahlung über Stripe</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">So funktioniert es</div>
+    <h2>In 3 Schritten erledigt</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step__num">01</div>
+        <div class="step__title">Zahlen und einreichen</div>
+        <div class="step__desc">Nach der Zahlung lädst du deinen Vertrag direkt auf der Bestätigungsseite hoch. Dauert weniger als 2 Minuten.</div>
+      </div>
+      <div class="step">
+        <div class="step__num">02</div>
+        <div class="step__title">Wir analysieren</div>
+        <div class="step__desc">Wir prüfen deinen Vertrag auf Kündigungsfristen, Sonderkündigungsrechte, unzulässige Klauseln und versteckte Laufzeiten.</div>
+      </div>
+      <div class="step">
+        <div class="step__num">03</div>
+        <div class="step__title">Ergebnis per E-Mail</div>
+        <div class="step__desc">Bis morgen 16:00 Uhr erhältst du deine Analyse sowie ein fertiges Kündigungsschreiben per E-Mail. Direkt verwendbar.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEISPIEL-ANALYSE -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Was du erhältst</div>
+    <h2>Beispielanalyse</h2>
+    <div class="report-preview">
+      <div class="report-preview__header">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Analyse möglicher Kündigungsgründe
+      </div>
+      <div class="report-row">
+        <div class="report-row__label">Sonderkündigungsrecht wegen Preiserhöhung</div>
+        <span class="badge badge--green"><span class="badge-dot"></span>Stark</span>
+        <span class="kans">Hoch</span>
+      </div>
+      <div class="report-row">
+        <div class="report-row__label">Automatische Vertragsverlängerung möglicherweise unwirksam</div>
+        <span class="badge badge--amber"><span class="badge-dot"></span>Möglich</span>
+        <span class="kans">Mittel</span>
+      </div>
+      <div class="report-row">
+        <div class="report-row__label">Kündigungsfrist kürzer als angegeben</div>
+        <span class="badge badge--green"><span class="badge-dot"></span>Stark</span>
+        <span class="kans">Hoch</span>
+      </div>
+      <div class="report-row">
+        <div class="report-row__label">Mindestlaufzeit überschritten</div>
+        <span class="badge badge--red"><span class="badge-dot"></span>Nicht zutreffend</span>
+        <span class="kans">Niedrig</span>
+      </div>
+      <div class="report-footer">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+        Inklusive fertigem Kündigungsschreiben und konkreten nächsten Schritten
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ERFAHRUNGEN -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Erfahrungen</div>
+    <h2>Was andere Nutzer sagen</h2>
+    <div class="reviews">
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <div class="review__text">&ldquo;Mein Handyvertrag verlängerte sich automatisch &mdash; laut Analyse war die Klausel unwirksam. Kündigung verschickt, Vertrag endet jetzt zum nächsten Termin.&rdquo;</div>
+        <div class="review__author">Laura M. — Frankfurt</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <div class="review__text">&ldquo;Strom&shy;anbieter hatte die Preise erhöht &mdash; ich wusste nicht, dass ich ein Sonderkündigungsrecht habe. Das fertige Schreiben war am nächsten Morgen in meinem Postfach.&rdquo;</div>
+        <div class="review__author">Stefan B. — München</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <div class="review__text">&ldquo;Fitnessstudio wollte mich nicht rauslassen. Die Analyse zeigte, dass die Mindestlaufzeit bereits abgelaufen war. Kündigung wurde akzeptiert.&rdquo;</div>
+        <div class="review__author">Anika S. — Hamburg</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MID-PAGE CTA -->
+<section style="padding:40px 0;border-bottom:1px solid var(--line);background:var(--surface);">
+  <div class="container" style="text-align:center;">
+    <p style="font-size:1rem;color:var(--ink-3);margin-bottom:16px;font-weight:500;">Lieber früher raus, wenn es möglich ist? Lass deinen Vertrag prüfen.</p>
+    <button class="cta-main" style="max-width:480px;margin:0 auto;" onclick="openModal()">
+      Vertrag prüfen — €29 · Ergebnis bis morgen 16:00 Uhr
+    </button>
+  </div>
+</section>
+
+<!-- WER STECKT DAHINTER -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Wer wir sind</div>
+    <h2>Auf einer Seite, der du vertrauen kannst</h2>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">⚖️</div>
+        <div class="trust-item__title">Deutsches Vertragsrecht</div>
+        <div class="trust-item__desc">Unsere Analyse basiert auf dem BGB, dem UWG und den aktuellen Verbraucherrechten — inklusive Sonderkündigungsrechten und Klauselkontrolle nach § 307 BGB.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🔍</div>
+        <div class="trust-item__title">Über 300 Verträge analysiert</div>
+        <div class="trust-item__desc">Seit dem Start haben wir mehr als 300 Verträge geprüft. Bei 71% fanden wir eine Kündigungsmöglichkeit oder eine angreifbare Klausel.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🔒</div>
+        <div class="trust-item__title">Daten werden nicht gespeichert</div>
+        <div class="trust-item__desc">Dein Dokument wird ausschließlich für die Analyse verwendet und danach sofort und dauerhaft gelöscht. Keine Weitergabe, keine Archivierung.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">✉️</div>
+        <div class="trust-item__title">Erreichbar per E-Mail</div>
+        <div class="trust-item__desc">Fragen zur Analyse oder zur Zahlung? Wir sind werktags per E-Mail erreichbar und antworten innerhalb von 24 Stunden.</div>
+      </div>
+    </div>
+    <div class="risk-reversal">
+      <span class="risk-reversal__icon">💬</span>
+      <span>Du erhältst immer eine verwertbare Analyse — oder dein Geld zurück. Ohne Diskussion.</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Fragen</div>
+    <h2>Häufig gestellte Fragen</h2>
+    <div class="faq">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Welche Verträge kann ich einreichen?
+          <svg class="faq-chevron" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Handy- und Internetverträge, Strom- und Gasverträge, Fitnessstudio-Mitgliedschaften, Streaming-Abonnements, Versicherungen, Leasingverträge und andere Dienstleistungsverträge. Sowohl PDF als auch Foto (JPG/PNG) werden unterstützt.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Wie reiche ich meinen Vertrag nach der Zahlung ein?
+          <svg class="faq-chevron" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Nach der Zahlung lädst du deinen Vertrag direkt auf der Bestätigungsseite hoch. Das dauert weniger als 2 Minuten. Deine Analyse und dein Kündigungsschreiben erhältst du bis morgen 16:00 Uhr per E-Mail.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Was, wenn keine Kündigung möglich ist?
+          <svg class="faq-chevron" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Du erhältst trotzdem einen vollständigen Bericht mit einer klaren Erklärung der Vertragslage, dem frühestmöglichen Kündigungstermin und konkreten nächsten Schritten. Du zahlst nie für einen leeren Bericht.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Ist das eine Rechtsberatung?
+          <svg class="faq-chevron" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Nein. Dies ist eine informative Analyse auf Basis deines Vertrags. Wir geben keine Rechtsberatung. Bei komplexen Situationen oder hohen Beträgen empfehlen wir, einen Anwalt oder die Verbraucherzentrale zu konsultieren.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Was passiert mit meinem Dokument?
+          <svg class="faq-chevron" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Dein Dokument wird nach der Analyse sofort und dauerhaft gelöscht. Wir speichern keine persönlichen Daten länger als für die Verarbeitung notwendig.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Gilt das Kündigungsschreiben als rechtssicher?
+          <svg class="faq-chevron" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Das Kündigungsschreiben ist ein professioneller Entwurf, der direkt verwendet werden kann. Es ist keine anwaltliche Leistung. Bei rechtlichen Unsicherheiten empfehlen wir eine Überprüfung durch die Verbraucherzentrale oder einen Anwalt.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DISCLAIMER -->
+<footer class="disclaimer">
+  <div class="container">
+    <p>Kündigungs Check DE bietet informative Analysen und erstellt Entwürfe für Kündigungsschreiben. Wir leisten keine Rechtsberatung. Ein Kündigungsschreiben garantiert keine erfolgreiche Vertragsbeendigung. Bei Ablehnung der Kündigung können weitere Schritte notwendig sein. Konsultiere im Zweifelsfall einen Anwalt oder die Verbraucherzentrale. Dokumente werden nach der Verarbeitung gelöscht. &copy; 2025 Kündigungs Check DE.</p>
+  </div>
+</footer>
+
+<!-- STICKY FOOTER -->
+<div class="sticky-footer" id="sticky-footer">
+  <div>
+    <div class="sticky-footer__text">Steckt dein Vertrag länger als nötig?</div>
+    <div class="sticky-footer__sub">Ergebnis bis morgen 16:00 Uhr · einmalig €29</div>
+  </div>
+  <button class="sticky-cta" onclick="openModal()">Vertrag prüfen — €29 →</button>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal__header">
+      <div class="modal__eyebrow">Was du erhältst</div>
+      <div class="modal__title">Analyse + Kündigungsschreiben bis morgen 16:00 Uhr</div>
+      <div class="modal__sub">Nach der Zahlung reichst du deinen Vertrag ein. Wir analysieren ihn und senden dir das Ergebnis bis morgen 16:00 Uhr per E-Mail.</div>
+      <div class="modal__price">€29 <span style="font-size:1rem;color:#9CA3AF;font-weight:400;">einmalig · kein Abo</span></div>
+    </div>
+    <div class="modal__body">
+      <div class="modal__feature">
+        <div class="check">✓</div>
+        <div>Vollständige Analyse aller Kündigungsmöglichkeiten</div>
+      </div>
+      <div class="modal__feature">
+        <div class="check">✓</div>
+        <div>Prüfung auf Sonderkündigungsrecht und unwirksame Klauseln</div>
+      </div>
+      <div class="modal__feature">
+        <div class="check">✓</div>
+        <div>Fertiges Kündigungsschreiben — direkt verwendbar</div>
+      </div>
+      <div class="modal__feature">
+        <div class="check">✓</div>
+        <div>Ergebnis bis morgen 16:00 Uhr</div>
+      </div>
+      <div class="modal__disclaimer">
+        ℹ️ Dies ist eine informative Analyse, keine Rechtsberatung. Ein Kündigungsschreiben garantiert keine sofortige Vertragsbeendigung.
+      </div>
+      <p id="modal-dynamic-copy" style="margin-bottom:16px;color:#6b7a90;font-size:0.9rem;">
+        Wir haben bereits erste Hinweise erkannt. Die vollständige Prüfung folgt nach der Zahlung.
+      </p>
+      <a href="https://buy.stripe.com/JOUW_STRIPE_LINK" class="modal__cta">
+        €29 zahlen und Analyse erhalten →
+      </a>
+      <div class="modal__security">🔒 Sichere Zahlung über Stripe · SEPA-Lastschrift verfügbar</div>
+      <div class="modal__close" onclick="closeModal()">Abbrechen</div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+const WORKER_URL = 'https://kuendigungscheck.dickgroen2.workers.dev';
+let gratisFile = null;
+
+function handleGratisFileSelect(input) {
+  if (!input.files || !input.files[0]) return;
+  gratisFile = input.files[0];
+  const zone = document.getElementById('gratis-upload-zone');
+  zone.innerHTML = `<div class="upload-label" style="color:var(--green);">✓ ${escapeHtmlLocal(gratisFile.name)}</div><div class="upload-hint">Datei ausgewählt</div>`;
+  const contactFields = document.getElementById('gratis-contact-fields');
+  contactFields.style.display = 'flex';
+  checkGratisReady();
+}
+
+function escapeHtmlLocal(str) {
+  return String(str || '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+}
+
+function checkGratisReady() {
+  const name = document.getElementById('gratis-name').value.trim();
+  const email = document.getElementById('gratis-email').value.trim();
+  const btn = document.getElementById('gratis-btn');
+  btn.disabled = !(name && email && email.includes('@') && gratisFile);
+}
+
+document.getElementById('gratis-name').addEventListener('input', checkGratisReady);
+document.getElementById('gratis-email').addEventListener('input', checkGratisReady);
+
+async function startGratisUpload() {
+  const name = document.getElementById('gratis-name').value.trim();
+  const email = document.getElementById('gratis-email').value.trim();
+  const btn = document.getElementById('gratis-btn');
+  const status = document.getElementById('gratis-status');
+
+  if (!gratisFile) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Wird gesendet...';
+  status.className = 'optie-status optie-status--info';
+  status.textContent = 'Dein Vertrag wird analysiert...';
+
+  const formData = new FormData();
+  formData.append('file', gratisFile);
+  formData.append('name', name);
+  formData.append('email', email);
+
+  try {
+    const res = await fetch(`${WORKER_URL}/analyze-free`, { method: 'POST', body: formData });
+    const data = await res.json();
+    if (data.ok) {
+      status.className = 'optie-status optie-status--success';
+      status.textContent = '✓ Sie erhalten Ihre Einschätzung spätestens am nächsten Werktag vor 16:00 Uhr per E-Mail.';
+      btn.textContent = 'Gesendet ✓';
+    } else {
+      throw new Error(data.error || 'Fehler');
+    }
+  } catch (err) {
+    status.className = 'optie-status optie-status--error';
+    status.textContent = 'Fehler: ' + err.message;
+    btn.disabled = false;
+    btn.textContent = 'Kostenlose Einschätzung anfordern';
+  }
+}
+</script>
+
+</body>
+</html>
